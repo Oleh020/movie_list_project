@@ -1,5 +1,7 @@
-async function getMovieList(movieId) {
-    fetch(`https://www.omdbapi.com/?i=${movieId}&apikey=90153e0b`)
+import FILMS_API_KEY from "./key.js";
+
+function getMovieList(movieId) {
+    fetch(`https://www.omdbapi.com/?i=${movieId}&apikey=${FILMS_API_KEY}`)
         .then(response => response.json())
         .then(json => console.log(json));
 };
