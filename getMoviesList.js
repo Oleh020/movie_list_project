@@ -2,7 +2,7 @@ import MOVIES_API_KEY from "./key.js";
 import NO_POSTER_URL from "./constants.js"
 
 const movieListById = document.querySelector('#movie-list'),
-     userInput = document.querySelector('.search-bar__input'),
+     searchBarInput = document.querySelector('.search-bar__input'),
      searchBtn = document.querySelector('.search-bar__button');
 
 /** this function receives an array of movies and render them on page */
@@ -50,5 +50,5 @@ function handleMovieSearch(inputValue) {
 
 searchBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    handleMovieSearch(userInput.value);
+    handleMovieSearch(searchBarInput.value);
 });
