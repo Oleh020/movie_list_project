@@ -1,0 +1,88 @@
+* {
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.movie__info {
+    width: 60%;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    gap: 20px;
+}
+
+.movie__info-container {
+    width: 100%;
+    height: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: space-between;
+}
+
+.movie__info-poster {
+    display: block;
+    height: 600px;
+    width: 400px;
+    background: URL(https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg) no-repeat center center/cover;
+    border-radius: 10px;
+    margin: 0;
+}
+
+.movie__info-poster:hover, .movie__info-descr:hover, .movie__info-plot:hover {
+    outline: #22A39F 2px solid;
+    box-shadow: 5px 5px 10px #22A39F;
+}
+
+.movie__info-descr {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px;
+    min-width: 63%;
+    height: 600px;
+    padding-left: 40px;
+    color:#F3EFE0;
+    text-align: left;
+    font-size: 20px;
+    gap: 15px;
+    background-color: #43424267;
+    border-radius: 10px;
+    flex-grow: inherit;
+    margin: 0;
+}
+
+.movie__info-title{
+    width: 100%;
+    display: block;
+    font-size: 40px;
+    font-weight: 700;
+    text-align: start;
+}
+
+.movie__info-genre, .movie__info-runtime, .movie__info-release-date, .ovie__info-runtime, .movie__info-director, .movie__info-actors, .movie__info-box-office, .movie__info-ratings {
+    width: 100%;
+    text-align: start;
+}
+
+.movie__info-general-words {
+    font-weight: 700;
+}
+
+.movie__info-plot {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 15px;
+    width: 100%;
+    min-height: 100px;
+    color:#F3EFE0;
+    background-color: #43424267;
+    border-radius: 10px;
+    gap: 15px;
+    font-size: 20px;
+}

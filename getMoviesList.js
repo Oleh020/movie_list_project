@@ -14,8 +14,9 @@ function appendMovieCard(movie) {
     const releaseYear = document.createElement('div');
         releaseYear.innerText = movie.Year;
         releaseYear.classList.add('movie-card__year');
-    const movieCard = document.createElement('div');
+    const movieCard = document.createElement('a');
         movieCard.classList.add('movie-card');
+        movieCard.setAttribute("href", "./moviePage.html")
         movieCard.appendChild(title);
         movieCard.appendChild(releaseYear);
         if (movie.Poster != "N/A") {
