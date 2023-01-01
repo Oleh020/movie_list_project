@@ -1,6 +1,11 @@
 import MOVIES_API_KEY from "./key.js";
 import NO_POSTER_URL from "./constants.js"
 
+/** this function gets movie information and sets page title equals to movie title */
+function changePageTitleToMovieTitle(movieInformation) {
+    const title = document.querySelector('title');
+    title.innerText = movieInformation.Title;
+}
 
 /** this function gets an id from URL parameters of the page */
 function getMovieId() {
@@ -112,6 +117,7 @@ async function getMovieInfo(imdbID) {
     const URL = `https://www.omdbapi.com/?i=${imdbID}&apikey=${MOVIES_API_KEY}`;
     const res = await fetch(`${URL}`);
     const movieInfo = await res.json();
+    changePageTitleToMovieTitle(movieInfo);
     renderMovieInfo(movieInfo);
 };
 
