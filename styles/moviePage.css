@@ -3,7 +3,7 @@
     margin: 0 auto;
 }
 
-.movie__info {
+#movie__info {
     width: 60%;
     padding-top: 60px;
     padding-bottom: 60px;
@@ -26,7 +26,6 @@
     display: block;
     height: 600px;
     width: 400px;
-    background: URL(https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg) no-repeat center center/cover;
     border-radius: 10px;
     margin: 0;
 }
@@ -63,12 +62,12 @@
     text-align: start;
 }
 
-.movie__info-genre, .movie__info-runtime, .movie__info-release-date, .ovie__info-runtime, .movie__info-director, .movie__info-actors, .movie__info-box-office, .movie__info-ratings {
+.movie__info-param {
     width: 100%;
     text-align: start;
 }
 
-.movie__info-general-words {
+.movie__info-general-subtitle {
     font-weight: 700;
 }
 
