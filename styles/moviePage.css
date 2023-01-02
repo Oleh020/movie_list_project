@@ -1,5 +1,5 @@
 
-#movie__info {
+#movie-descr {
     width: 60%;
     padding-top: 60px;
     padding-bottom: 60px;
@@ -10,7 +10,7 @@
     gap: 20px;
 }
 
-.movie__info-container {
+.movie-descr__container {
     width: 100%;
     min-height: 600px;
     display: flex;
@@ -18,7 +18,7 @@
     align-items: space-between;
 }
 
-.movie__info-poster {
+.movie-descr__poster {
     display: block;
     height: 600px;
     width: 400px;
@@ -26,12 +26,12 @@
     margin: 0;
 }
 
-.movie__info-poster:hover, .movie__info-descr:hover, .movie__info-plot:hover {
+.movie-descr__poster:hover, .movie-descr__block:hover, .movie-descr__plot:hover {
     outline: #22A39F 2px solid;
     box-shadow: 5px 5px 10px #22A39F;
 }
 
-.movie__info-descr {
+.movie-descr__block {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -50,7 +50,7 @@
     margin: 0;
 }
 
-.movie__info-title{
+.movie-descr__title{
     width: 100%;
     display: block;
     font-size: 40px;
@@ -58,16 +58,16 @@
     text-align: start;
 }
 
-.movie__info-param {
+.movie-descr__param {
     width: 100%;
     text-align: start;
 }
 
-.movie__info-general-subtitle {
+.movie-descr__general__subtitle {
     font-weight: 700;
 }
 
-.movie__info-plot {
+.movie-descr__plot {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

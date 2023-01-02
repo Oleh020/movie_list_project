@@ -17,16 +17,16 @@ function getMovieId() {
 
 /** this function receives object with information and renders it on the page */
 function renderMovieInfo(movieInformation) {
-    const movieCard = document.querySelector('#movie__info');
+    const movieCard = document.querySelector('#movie-descr');
 
     const movieContainer = document.createElement('div');
-        movieContainer.classList.add('movie__info-container');
+        movieContainer.classList.add('movie-descr__container');
 
     const plotContainer = document.createElement('div');
-        plotContainer.classList.add('movie__info-plot');
+        plotContainer.classList.add('movie-descr__plot');
         
     const poster = document.createElement('div');
-        poster.classList.add('movie__info-poster')
+        poster.classList.add('movie-descr__poster')
         if (movieInformation.Poster != 'N/A') {
             poster.style.background = `URL(${movieInformation.Poster}) no-repeat center center/cover`;
         } else {
@@ -35,74 +35,73 @@ function renderMovieInfo(movieInformation) {
 
     movieContainer.appendChild(poster);
     const descrBlock = document.createElement('div');
-    descrBlock.classList.add('movie__info-descr');
+    descrBlock.classList.add('movie-descr__block');
 
     const title = document.createElement('div');
         title.innerText = movieInformation.Title;
-        title.classList.add('movie__info-title');
+        title.classList.add('movie-descr__title');
         descrBlock.appendChild(title);
     const genre = document.createElement('div');
-        genre.classList.add('movie__info-param');
-        genre.innerHTML = `<span class = 'movie__info-general-subtitle'>Genre: </span> ${movieInformation.Genre} `;
+        genre.classList.add('movie-descr__param');
+        genre.innerHTML = `<span class = 'movie-descr__general__subtitle'>Genre: </span> ${movieInformation.Genre} `;
         
         descrBlock.appendChild(genre);
     const releaseDate = document.createElement('div');
-        releaseDate.classList.add('movie__info-param');
-        releaseDate.innerHTML = `<span class = 'movie__info-general-subtitle'>Release date: </span> ${movieInformation.Released} `;
+        releaseDate.classList.add('movie-descr__param');
+        releaseDate.innerHTML = `<span class = 'movie-descr__general__subtitle'>Release date: </span> ${movieInformation.Released} `;
         
         descrBlock.appendChild(releaseDate);
     const runtime = document.createElement('div');
-        runtime.classList.add('movie__info-param');
-        runtime.innerHTML = `<span class = 'movie__info-general-subtitle'>Runtime: </span> ${movieInformation.Runtime} `;
+        runtime.classList.add('movie-descr__param');
+        runtime.innerHTML = `<span class = 'movie-descr__general__subtitle'>Runtime: </span> ${movieInformation.Runtime} `;
         
         descrBlock.appendChild(runtime);
     const director = document.createElement('div');
-        director.classList.add('movie__info-param');
-        director.innerHTML = `<span class = 'movie__info-general-subtitle'>Director: </span> ${movieInformation.Director} `;
+        director.classList.add('movie-descr__param');
+        director.innerHTML = `<span class = 'movie-descr__general__subtitle'>Director: </span> ${movieInformation.Director} `;
         
         descrBlock.appendChild(director);
     const writer = document.createElement('div');
-        writer.classList.add('movie__info-param');
-        writer.innerHTML = `<span class = 'movie__info-general-subtitle'>Writer: </span> ${movieInformation.Writer} `;
+        writer.classList.add('movie-descr__param');
+        writer.innerHTML = `<span class = 'movie-descr__general__subtitle'>Writer: </span> ${movieInformation.Writer} `;
         
         descrBlock.appendChild(writer);
     const actors = document.createElement('div');
-        actors.classList.add('movie__info-param');
-        actors.innerHTML = `<span class = 'movie__info-general-subtitle'>Actors: </span> ${movieInformation.Actors} `;
+        actors.classList.add('movie-descr__param');
+        actors.innerHTML = `<span class = 'movie-descr__general__subtitle'>Actors: </span> ${movieInformation.Actors} `;
         
         descrBlock.appendChild(actors);
     const imdbRating = document.createElement('div');
-        imdbRating.classList.add('movie__info-param');
-        imdbRating.innerHTML = `<span class = 'movie__info-general-subtitle'>imdbRating: &#9733 </span> ${movieInformation.imdbRating} `;
+        imdbRating.classList.add('movie-descr__param');
+        imdbRating.innerHTML = `<span class = 'movie-descr__general__subtitle'>imdbRating: &#9733 </span> ${movieInformation.imdbRating} `;
         
         descrBlock.appendChild(imdbRating);
     const metascore = document.createElement('div');
-        metascore.classList.add('movie__info-param');
+        metascore.classList.add('movie-descr__param');
         if(movieInformation.Metascore != "N/A") {
-            metascore.innerHTML = `<span class = 'movie__info-general-subtitle'>Metascore: &#9733 </span> ${movieInformation.Metascore} `;
+            metascore.innerHTML = `<span class = 'movie-descr__general__subtitle'>Metascore: &#9733 </span> ${movieInformation.Metascore} `;
         } else {
-            metascore.innerHTML = `<span class = 'movie__info-general-subtitle'>Metascore: &#9733 </span> __ `;
+            metascore.innerHTML = `<span class = 'movie-descr__general__subtitle'>Metascore: &#9733 </span> __ `;
         }
         
         descrBlock.appendChild(metascore);
     const boxOffice = document.createElement('div');
-        boxOffice.classList.add('movie__info-param');
+        boxOffice.classList.add('movie-descr__param');
         if(movieInformation.BoxOffice != "N/A") {
-            boxOffice.innerHTML = `<span class = 'movie__info-general-subtitle'>Box office: </span> ${movieInformation.BoxOffice} `;
+            boxOffice.innerHTML = `<span class = 'movie-descr__general__subtitle'>Box office: </span> ${movieInformation.BoxOffice} `;
         } else {
-            boxOffice.innerHTML = `<span class = 'movie__info-general-subtitle'>Box office: </span> __ `;
+            boxOffice.innerHTML = `<span class = 'movie-descr__general__subtitle'>Box office: </span> __ `;
         }
         
         descrBlock.appendChild(boxOffice);
     movieContainer.appendChild(descrBlock);
 
     const plotPref = document.createElement('div');
-        plotPref.classList.add('movie__info-general-subtitle');
+        plotPref.classList.add('movie-descr__general__subtitle');
         plotPref.innerText = 'Movie plot:';
 
     const plot = document.createElement('div');
-        plot.classList.add('movie__info-param');
-        plot.style.textAlign = 'center';
+        plot.classList.add('movie-descr__param');
         plot.innerText = movieInformation.Plot;
 
     plotContainer.append(plotPref, plot);
