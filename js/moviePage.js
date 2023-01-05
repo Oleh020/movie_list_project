@@ -87,12 +87,13 @@ function renderMovieInfo(movieInformation) {
         descrBlock.appendChild(metascore);
     const boxOffice = document.createElement('div');
         boxOffice.classList.add('movie-descr__param');
-        if(movieInformation.BoxOffice != "N/A") {
+        if(movieInformation.BoxOffice != "N/A" && movieInformation.BoxOffice) {
             boxOffice.innerHTML = `<span class = 'movie-descr__general__subtitle'>Box office: </span> ${movieInformation.BoxOffice} `;
         } else {
             boxOffice.innerHTML = `<span class = 'movie-descr__general__subtitle'>Box office: </span> __ `;
         }
         
+        console.log(movieInformation.BoxOffice);
         descrBlock.appendChild(boxOffice);
     movieContainer.appendChild(descrBlock);
 
