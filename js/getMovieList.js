@@ -44,6 +44,16 @@ function renderMovieCardsSection() {
 }
 renderMovieCardsSection();
 
+/**
+ * This function renders an error card on fetch response === false
+ */
+function noResultsFoundRender() {
+    const errCard = document.createElement('div');
+    errCard.classList.add('movie-list__nothing-found');
+    errCard.innerText = 'No results found, try again';
+    document.querySelector('#movie-list').append(errCard);
+}
+
 /** this function receives an array of movies and render them on page */
 function appendMovieCard(movie) {
     
@@ -72,8 +82,14 @@ async function getMovieList(page = 1, searchValue='any') {
     const URL = `https://www.omdbapi.com/?s=${searchValue}&page=${page}&apikey=${MOVIES_API_KEY}`;
     const res = await fetch(`${URL}`);
     const movieList = await res.json();
-    movieList.Search.length = 9;
-    movieList.Search.forEach(appendMovieCard);
+    console.log(movieList);
+    console.log(movieList.Response);
+    if (movieList.Response === 'True'){
+        movieList.Search.length = 9;
+        movieList.Search.forEach(appendMovieCard);
+    } else{
+        noResultsFoundRender();
+    }
 }
 
 getMovieList();    

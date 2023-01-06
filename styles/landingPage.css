@@ -113,3 +113,21 @@
     line-height: 25px;
     font-weight: 700;
 }
+
+.movie-list__nothing-found {
+    display:block;
+    background-color:#434242;
+    width: 40%;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    font-weight: 500;
+    color: #F3EFE0;
+    font-size: 20px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #000000;
+}
+
+.movie-list__nothing-found:hover {
+    color: #22A39F;
+}
