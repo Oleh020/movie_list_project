@@ -89,8 +89,3 @@ const LOGO_MAIN = `<svg version="1.1" x="0px" y="0px"
 </svg>
 `;
 export {LOGO_MAIN, NO_POSTER_URL};
-
-// 1)header with logo (that leads to the homepage)
-// 2)cut movie items cards to 9 items
-// 3)fix undefined bug in box office while searching for games/animes
-// 4)pagination
