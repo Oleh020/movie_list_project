@@ -1,8 +1,8 @@
 
 #movie-descr {
     width: 60%;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,7 +28,7 @@
 
 .movie-descr__poster:hover, .movie-descr__block:hover, .movie-descr__plot:hover {
     outline: #22A39F 2px solid;
-    box-shadow: 5px 5px 10px #22A39F;
+    box-shadow: 5px 5px 10px #222222;
 }
 
 .movie-descr__block {
