@@ -1,5 +1,11 @@
 import MOVIES_API_KEY from "./key.js";
-import NO_POSTER_URL from "./constants.js"
+import {NO_POSTER_URL} from "./constants.js";
+import {headerRender} from "./headerRender.js";
+
+const body = document.querySelector('body');
+
+//At first function that creates header initializes
+headerRender();
 
 /** this function gets movie information and sets page title equals to movie title */
 function changePageTitleToMovieTitle(movieInformation) {
@@ -17,7 +23,9 @@ function getMovieId() {
 
 /** this function receives object with information and renders it on the page */
 function renderMovieInfo(movieInformation) {
-    const movieCard = document.querySelector('#movie-descr');
+    const movieCard = document.createElement('section');
+        movieCard.id = 'movie-descr';
+    body.append(movieCard);
 
     const movieContainer = document.createElement('div');
         movieContainer.classList.add('movie-descr__container');
