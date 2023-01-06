@@ -42,6 +42,7 @@ function renderMovieCardsSection() {
         movieCardsSection.id = 'movie-list';
     body.append(movieCardsSection);
 }
+renderMovieCardsSection();
 
 /** this function receives an array of movies and render them on page */
 function appendMovieCard(movie) {
@@ -72,7 +73,6 @@ async function getMovieList(page = 1, searchValue='any') {
     const res = await fetch(`${URL}`);
     const movieList = await res.json();
     movieList.Search.length = 9;
-    renderMovieCardsSection();
     movieList.Search.forEach(appendMovieCard);
 }
 
