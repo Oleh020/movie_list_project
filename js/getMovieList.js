@@ -98,11 +98,7 @@ function movieListPagesNumbersRender(numberOfPages) {
             if(!searchInput) {
                 searchInput = 'any';
             }
-            //this thing needs fixing
-            e.target.classList.add('movie-list__page-icon-active');
-            console.log(e.target);
             handleMovieSearch(e.target.innerText, searchInput);
-            
         })
     }
 }
@@ -117,8 +113,13 @@ async function getMovieList(page = 1, searchValue='any') {
         movieList.Search.length = 9;
         movieList.Search.forEach(appendMovieCard);
         const numOfPages = Math.ceil(movieList.totalResults / 10);
-        //movieListPagesIconsRender(numOfPages);
-        return await movieListPagesNumbersRender(numOfPages);
+        movieListPagesNumbersRender(numOfPages);
+        const pagesNumbers = document.querySelectorAll('.movie-list__page-icon');
+        pagesNumbers.forEach(item => {
+            if(item.innerText === page) {
+                item.classList.add('movie-list__page-icon-active');
+            }
+        });
     } else{
         noResultsFoundRender();
     }
