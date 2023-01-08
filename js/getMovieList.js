@@ -104,9 +104,9 @@ function movieListPagesNumbersRender(numberOfPages) {
 }
 
 /** this function sends request to the API and gets the movie list */
-async function getMovieList(page = 1, searchValue='any') {
+async function getMovieList(currPage = 1, searchValue='any') {
   
-    const URL = `https://www.omdbapi.com/?s=${searchValue}&page=${page}&apikey=${MOVIES_API_KEY}`;
+    const URL = `https://www.omdbapi.com/?s=${searchValue}&page=${currPage}&apikey=${MOVIES_API_KEY}`;
     const res = await fetch(`${URL}`);
     const movieList = await res.json();
     if (movieList.Response === 'True'){
@@ -114,12 +114,20 @@ async function getMovieList(page = 1, searchValue='any') {
         movieList.Search.forEach(appendMovieCard);
         const numOfPages = Math.ceil(movieList.totalResults / 10);
         movieListPagesNumbersRender(numOfPages);
-        const pagesNumbers = document.querySelectorAll('.movie-list__page-icon');
+        //changing active class for rendered page numbers
+        const pagesNumbers = document.querySelectorAll('.movie-list__page-icon'),
+            firstPageNumber = document.querySelector('.movie-list__page-icon');
+        if(currPage === 1) {
+            firstPageNumber.classList.add('movie-list__page-icon-active');
+        } else {
+            pagesNumbers.forEach(item => {
+                if(item.innerText === currPage) {
+                    item.classList.add('movie-list__page-icon-active');
+                }
+            })
+        }
         pagesNumbers.forEach(item => {
-            if(item.innerText === page) {
-                item.classList.add('movie-list__page-icon-active');
-            }
-            if(+item.innerText > (+page + 2) || +item.innerText < (+page - 2)) {
+            if(+item.innerText > (+currPage + 2) || +item.innerText < (+currPage - 2)) {
                 item.classList.add('movie-list__page-icon-hidden');
             } else {
                 item.classList.remove('movie-list__page-icon-hidden');
