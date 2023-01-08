@@ -119,6 +119,12 @@ async function getMovieList(page = 1, searchValue='any') {
             if(item.innerText === page) {
                 item.classList.add('movie-list__page-icon-active');
             }
+            if(+item.innerText > (+page + 2) || +item.innerText < (+page - 2)) {
+                item.classList.add('movie-list__page-icon-hidden');
+            } else {
+                item.classList.remove('movie-list__page-icon-hidden');
+            }
+
         });
     } else{
         noResultsFoundRender();

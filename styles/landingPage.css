@@ -138,7 +138,7 @@
     align-items:center;
     flex-wrap: wrap;
     gap: 20px;
-    min-width: 30%;
+    min-width: 10%;
     min-height: 50px;
 }
 
@@ -162,6 +162,11 @@
 }
 
 .movie-list__page-icon-active {
+    font-weight: 700;
     background-color:#22A39F;
     color:#434242;
+}
+
+.movie-list__page-icon-hidden {
+    display: none;
 }
