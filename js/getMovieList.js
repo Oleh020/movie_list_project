@@ -76,17 +76,49 @@ function appendMovieCard(movie) {
     document.querySelector('#movie-list').appendChild(movieCard);
 }
 
+
+/**
+ * This function is suppused to render a block with pages numbers and put on them event listener so every time you click on it, it inits search on target page
+ * @param {*} numberOfPages 
+ */
+function movieListPagesNumbersRender(numberOfPages) {
+
+    const moviePagesContainer = document.createElement('div'),
+        movieSectionContainer = document.querySelector('#movie-list');
+    moviePagesContainer.classList.add('movie-list__pages-container');
+    movieSectionContainer.append(moviePagesContainer);
+
+    for(let i = 1; i <= numberOfPages; i++) {
+        const moviePageNumber = document.createElement('div');
+        moviePageNumber.innerText = `${i}`;
+        moviePageNumber.classList.add('movie-list__page-icon');
+        moviePagesContainer.append(moviePageNumber);
+        moviePageNumber.addEventListener('click', (e) => {
+            let searchInput = document.querySelector('.search-bar__input').value;
+            if(!searchInput) {
+                searchInput = 'any';
+            }
+            //this thing needs fixing
+            e.target.classList.add('movie-list__page-icon-active');
+            console.log(e.target);
+            handleMovieSearch(e.target.innerText, searchInput);
+            
+        })
+    }
+}
+
 /** this function sends request to the API and gets the movie list */
 async function getMovieList(page = 1, searchValue='any') {
   
     const URL = `https://www.omdbapi.com/?s=${searchValue}&page=${page}&apikey=${MOVIES_API_KEY}`;
     const res = await fetch(`${URL}`);
     const movieList = await res.json();
-    console.log(movieList);
-    console.log(movieList.Response);
     if (movieList.Response === 'True'){
         movieList.Search.length = 9;
         movieList.Search.forEach(appendMovieCard);
+        const numOfPages = Math.ceil(movieList.totalResults / 10);
+        //movieListPagesIconsRender(numOfPages);
+        return await movieListPagesNumbersRender(numOfPages);
     } else{
         noResultsFoundRender();
     }
@@ -100,12 +132,14 @@ function clearMovieList() {
 }
 
 /** this func receives a user input and executes list clearing and rendering funcs */
-function handleMovieSearch(inputValue) {
+function handleMovieSearch(pageNumber, inputValue) {
     clearMovieList();
-    getMovieList(1, inputValue);
+    getMovieList(pageNumber, inputValue);
 }
 
 document.querySelector('.search-bar__form').addEventListener('submit', (e) => {
     e.preventDefault();
-    handleMovieSearch(document.querySelector('.search-bar__input').value);
+    handleMovieSearch(1, document.querySelector('.search-bar__input').value);
 });
+
+
