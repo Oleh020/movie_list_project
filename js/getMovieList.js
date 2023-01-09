@@ -124,7 +124,9 @@ async function getMovieList(currPage = 1, searchValue='any') {
             firstPageNumber = document.querySelector('.movie-list__page-icon');
         if(currPage === 1) {
             firstPageNumber.classList.add('movie-list__page-icon-active');
-        } else {
+        } else if(currPage === numOfPages) {
+            pagesNumbers[pagesNumbers.length - 1].classList.add('movie-list__page-icon-active');
+        }else {
             pagesNumbers.forEach(item => {
                 if(item.innerText === currPage) {
                     item.classList.add('movie-list__page-icon-active');
@@ -137,8 +139,41 @@ async function getMovieList(currPage = 1, searchValue='any') {
             } else {
                 item.classList.remove('movie-list__page-icon-hidden');
             }
-
         });
+        if(pagesNumbers[0].classList.contains('movie-list__page-icon-hidden')) {
+            const extremeLeftPageArrow = document.createElement('div'),
+                pagesContainer = document.querySelector('.movie-list__pages-container');
+            let searchBarInput = document.querySelector('.search-bar__input');
+                if(!searchBarInput.value) {
+                    searchBarInput.value = 'Any';
+                };
+
+                extremeLeftPageArrow.classList.add('movie-list__page-arrow');
+                extremeLeftPageArrow.innerHTML = '&#10094&#10094';
+
+                pagesContainer.prepend(extremeLeftPageArrow);
+
+                extremeLeftPageArrow.addEventListener('click', () => {
+                    handleMovieSearch(1, searchBarInput.value);
+                });
+        }
+         if (pagesNumbers[pagesNumbers.length - 1].classList.contains('movie-list__page-icon-hidden')) {
+            const extremeRightPageArrow = document.createElement('div'),
+                pagesContainer = document.querySelector('.movie-list__pages-container');
+            let searchBarInput = document.querySelector('.search-bar__input');
+                if(!searchBarInput.value) {
+                    searchBarInput.value = 'Any';
+                };
+
+                extremeRightPageArrow.classList.add('movie-list__page-arrow');
+                extremeRightPageArrow.innerHTML = '&#10095&#10095';
+
+                pagesContainer.append(extremeRightPageArrow);
+
+                extremeRightPageArrow.addEventListener('click', () => {
+                    handleMovieSearch(numOfPages, searchBarInput.value);
+                });
+        }
     } else{
         noResultsFoundRender();
     }
