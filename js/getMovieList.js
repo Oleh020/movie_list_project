@@ -12,24 +12,29 @@ headerRender();
  * This function renders a search bar proceduraly
  */
 function searchBarRender() {
-    const SBSection = document.createElement('section'),
-         SBForm = document.createElement('form'),
-         SBInput = document.createElement('input'),
-         SBButton = document.createElement('button');
+    const searchBarSection = document.createElement('section'),
+         searchBarForm = document.createElement('form'),
+         searchBarInput = document.createElement('input'),
+         searchBarButton = document.createElement('button');
 
-    SBSection.id = 'search-bar';
-    SBForm.classList.add('search-bar__form');
-    SBForm.type = 'submit';
-    SBInput.classList.add('search-bar__input');
-    SBInput.type = 'text';
-    SBInput.placeholder = 'Enter the title of the movie please';
-    SBButton.classList.add('search-bar__button');
-    SBButton.type = 'submit';
-    SBButton.innerHTML = '&#10162';
+    searchBarSection.id = 'search-bar';
+    searchBarForm.classList.add('search-bar__form');
+    searchBarForm.type = 'submit';
+    searchBarInput.classList.add('search-bar__input');
+    searchBarInput.type = 'text';
+    searchBarInput.placeholder = 'Enter the title of the movie please';
+    searchBarButton.classList.add('search-bar__button');
+    searchBarButton.type = 'submit';
+    searchBarButton.innerHTML = '&#10162';
 
-    SBForm.append(SBInput, SBButton);
-    SBSection.append(SBForm);
-    body.append(SBSection);
+    searchBarForm.append(searchBarInput, searchBarButton);
+    searchBarSection.append(searchBarForm);
+    body.append(searchBarSection);
+
+    searchBarForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleMovieSearch(1, searchBarInput.value);
+    });
 }
 
 searchBarRender();
@@ -79,7 +84,7 @@ function appendMovieCard(movie) {
 
 /**
  * This function is suppused to render a block with pages numbers and put on them event listener so every time you click on it, it inits search on target page
- * @param {*} numberOfPages 
+ * @param {number} numberOfPages 
  */
 function movieListPagesNumbersRender(numberOfPages) {
 
@@ -151,10 +156,5 @@ function handleMovieSearch(pageNumber, inputValue) {
     clearMovieList();
     getMovieList(pageNumber, inputValue);
 }
-
-document.querySelector('.search-bar__form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    handleMovieSearch(1, document.querySelector('.search-bar__input').value);
-});
 
 

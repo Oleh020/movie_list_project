@@ -4,7 +4,7 @@ import {LOGO_MAIN} from './constants.js';
  * This function proceduraly adds a header to the page, it needs some styles from global.css
  */
 
-function headerRender() {
+export function headerRender() {
     const header = document.createElement('header'),
         headerContainer = document.createElement('div'),
         logoContainer = document.createElement('a');
@@ -19,5 +19,3 @@ function headerRender() {
     const body = document.querySelector('body');
     body.appendChild(header);
 }
-
-export {headerRender};
