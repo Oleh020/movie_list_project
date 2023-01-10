@@ -35,6 +35,7 @@ function searchBarRender() {
         e.preventDefault();
         handleMovieSearch(1, searchBarInput.value);
     });
+
 }
 
 searchBarRender();
@@ -191,5 +192,3 @@ function handleMovieSearch(pageNumber, inputValue) {
     clearMovieList();
     getMovieList(pageNumber, inputValue);
 }
-
-
