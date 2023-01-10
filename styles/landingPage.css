@@ -131,3 +131,57 @@
 .movie-list__nothing-found:hover {
     color: #22A39F;
 }
+
+.movie-list__pages-container {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    flex-wrap: wrap;
+    gap: 20px;
+    min-width: 10%;
+    min-height: 50px;
+}
+
+.movie-list__page-icon {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-color:#434242;
+    color: #F3EFE0;
+    text-align: center;
+    line-height: 40px;
+    font-weight: 500;
+    font-size: 20px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #000000;
+    cursor: pointer;
+}
+
+.movie-list__page-arrow {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-color:#434242;
+    color: #F3EFE0;
+    text-align: center;
+    line-height: 40px;
+    font-weight: 500;
+    font-size: 20px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #000000;
+    cursor: pointer;
+}
+
+.movie-list__page-icon:hover {
+    outline: #22A39F 2px solid;
+}
+
+.movie-list__page-icon-active {
+    font-weight: 700;
+    background-color:#22A39F;
+    color:#434242;
+}
+
+.movie-list__page-icon-hidden {
+    display: none;
+}

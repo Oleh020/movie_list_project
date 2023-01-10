@@ -12,24 +12,30 @@ headerRender();
  * This function renders a search bar proceduraly
  */
 function searchBarRender() {
-    const SBSection = document.createElement('section'),
-         SBForm = document.createElement('form'),
-         SBInput = document.createElement('input'),
-         SBButton = document.createElement('button');
+    const searchBarSection = document.createElement('section'),
+         searchBarForm = document.createElement('form'),
+         searchBarInput = document.createElement('input'),
+         searchBarButton = document.createElement('button');
 
-    SBSection.id = 'search-bar';
-    SBForm.classList.add('search-bar__form');
-    SBForm.type = 'submit';
-    SBInput.classList.add('search-bar__input');
-    SBInput.type = 'text';
-    SBInput.placeholder = 'Enter the title of the movie please';
-    SBButton.classList.add('search-bar__button');
-    SBButton.type = 'submit';
-    SBButton.innerHTML = '&#10162';
+    searchBarSection.id = 'search-bar';
+    searchBarForm.classList.add('search-bar__form');
+    searchBarForm.type = 'submit';
+    searchBarInput.classList.add('search-bar__input');
+    searchBarInput.type = 'text';
+    searchBarInput.placeholder = 'Enter the title of the movie please';
+    searchBarButton.classList.add('search-bar__button');
+    searchBarButton.type = 'submit';
+    searchBarButton.innerHTML = '&#10162';
 
-    SBForm.append(SBInput, SBButton);
-    SBSection.append(SBForm);
-    body.append(SBSection);
+    searchBarForm.append(searchBarInput, searchBarButton);
+    searchBarSection.append(searchBarForm);
+    body.append(searchBarSection);
+
+    searchBarForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleMovieSearch(1, searchBarInput.value);
+    });
+
 }
 
 searchBarRender();
@@ -76,17 +82,99 @@ function appendMovieCard(movie) {
     document.querySelector('#movie-list').appendChild(movieCard);
 }
 
+
+/**
+ * This function is suppused to render a block with pages numbers and put on them event listener so every time you click on it, it inits search on target page
+ * @param {number} numberOfPages 
+ */
+function movieListPagesNumbersRender(numberOfPages) {
+
+    const moviePagesContainer = document.createElement('div'),
+        movieSectionContainer = document.querySelector('#movie-list');
+    moviePagesContainer.classList.add('movie-list__pages-container');
+    movieSectionContainer.append(moviePagesContainer);
+
+    for(let i = 1; i <= numberOfPages; i++) {
+        const moviePageNumber = document.createElement('div');
+        moviePageNumber.innerText = `${i}`;
+        moviePageNumber.classList.add('movie-list__page-icon');
+        moviePagesContainer.append(moviePageNumber);
+        moviePageNumber.addEventListener('click', (e) => {
+            let searchInput = document.querySelector('.search-bar__input').value;
+            if(!searchInput) {
+                searchInput = 'any';
+            }
+            handleMovieSearch(e.target.innerText, searchInput);
+        })
+    }
+}
+
 /** this function sends request to the API and gets the movie list */
-async function getMovieList(page = 1, searchValue='any') {
+async function getMovieList(currPage = 1, searchValue='any') {
   
-    const URL = `https://www.omdbapi.com/?s=${searchValue}&page=${page}&apikey=${MOVIES_API_KEY}`;
+    const URL = `https://www.omdbapi.com/?s=${searchValue}&page=${currPage}&apikey=${MOVIES_API_KEY}`;
     const res = await fetch(`${URL}`);
     const movieList = await res.json();
-    console.log(movieList);
-    console.log(movieList.Response);
     if (movieList.Response === 'True'){
         movieList.Search.length = 9;
         movieList.Search.forEach(appendMovieCard);
+        const numOfPages = Math.ceil(movieList.totalResults / 10);
+        movieListPagesNumbersRender(numOfPages);
+        //changing active class for rendered page numbers
+        const pagesNumbers = document.querySelectorAll('.movie-list__page-icon'),
+            firstPageNumber = document.querySelector('.movie-list__page-icon');
+        if(currPage === 1) {
+            firstPageNumber.classList.add('movie-list__page-icon-active');
+        } else if(currPage === numOfPages) {
+            pagesNumbers[pagesNumbers.length - 1].classList.add('movie-list__page-icon-active');
+        }else {
+            pagesNumbers.forEach(item => {
+                if(item.innerText === currPage) {
+                    item.classList.add('movie-list__page-icon-active');
+                }
+            })
+        }
+        pagesNumbers.forEach(item => {
+            if(+item.innerText > (+currPage + 2) || +item.innerText < (+currPage - 2)) {
+                item.classList.add('movie-list__page-icon-hidden');
+            } else {
+                item.classList.remove('movie-list__page-icon-hidden');
+            }
+        });
+        if(pagesNumbers[0].classList.contains('movie-list__page-icon-hidden')) {
+            const extremeLeftPageArrow = document.createElement('div'),
+                pagesContainer = document.querySelector('.movie-list__pages-container');
+            let searchBarInput = document.querySelector('.search-bar__input');
+                if(!searchBarInput.value) {
+                    searchBarInput.value = 'Any';
+                };
+
+                extremeLeftPageArrow.classList.add('movie-list__page-arrow');
+                extremeLeftPageArrow.innerHTML = '&#10094&#10094';
+
+                pagesContainer.prepend(extremeLeftPageArrow);
+
+                extremeLeftPageArrow.addEventListener('click', () => {
+                    handleMovieSearch(1, searchBarInput.value);
+                });
+        }
+         if (pagesNumbers[pagesNumbers.length - 1].classList.contains('movie-list__page-icon-hidden')) {
+            const extremeRightPageArrow = document.createElement('div'),
+                pagesContainer = document.querySelector('.movie-list__pages-container');
+            let searchBarInput = document.querySelector('.search-bar__input');
+                if(!searchBarInput.value) {
+                    searchBarInput.value = 'Any';
+                };
+
+                extremeRightPageArrow.classList.add('movie-list__page-arrow');
+                extremeRightPageArrow.innerHTML = '&#10095&#10095';
+
+                pagesContainer.append(extremeRightPageArrow);
+
+                extremeRightPageArrow.addEventListener('click', () => {
+                    handleMovieSearch(numOfPages, searchBarInput.value);
+                });
+        }
     } else{
         noResultsFoundRender();
     }
@@ -100,12 +188,7 @@ function clearMovieList() {
 }
 
 /** this func receives a user input and executes list clearing and rendering funcs */
-function handleMovieSearch(inputValue) {
+function handleMovieSearch(pageNumber, inputValue) {
     clearMovieList();
-    getMovieList(1, inputValue);
+    getMovieList(pageNumber, inputValue);
 }
-
-document.querySelector('.search-bar__form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    handleMovieSearch(document.querySelector('.search-bar__input').value);
-});
