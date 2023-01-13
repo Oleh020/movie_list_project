@@ -101,7 +101,6 @@ function renderMovieInfo(movieInformation) {
             boxOffice.innerHTML = `<span class = 'movie-descr__general__subtitle'>Box office: </span> __ `;
         }
         
-        console.log(movieInformation.BoxOffice);
         descrBlock.appendChild(boxOffice);
     movieContainer.appendChild(descrBlock);
 

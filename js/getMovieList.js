@@ -61,7 +61,9 @@ function noResultsFoundRender() {
 
 /** this function receives an array of movies and render them on page */
 function appendMovieCard(movie) {
-    
+    const star = document.createElement('div');
+        star.innerHTML = '&#9734';
+        star.classList.add('movie-card__star-hidden');
     const title = document.createElement('div');
         title.innerText = movie.Title;
         title.classList.add('movie-card__title');
@@ -73,12 +75,35 @@ function appendMovieCard(movie) {
         movieCard.setAttribute("href", `./moviePage.html?id=${movie.imdbID}`)
         movieCard.appendChild(title);
         movieCard.appendChild(releaseYear);
+        movieCard.append(star);
         if (movie.Poster != "N/A") {
             movieCard.style.background = `URL(${movie.Poster}) no-repeat center center/cover`;
         } else {
             movieCard.style.background = `URL(${NO_POSTER_URL}) no-repeat center center/cover`;
         }
     document.querySelector('#movie-list').appendChild(movieCard);
+    //adding event listeners
+    movieCard.addEventListener('mouseover', (e) => {
+        if(e.target === movieCard) {
+            e.target.children[2].classList.add('movie-card__star-hover');
+        }
+    })  
+    movieCard.addEventListener('mouseleave', (e) => {
+        if(e.target === movieCard) {
+            e.target.children[2].classList.remove('movie-card__star-hover');
+        }
+    })   
+
+    star.addEventListener('click', (e) => {
+        e.preventDefault();
+            if (e.target.classList.contains('movie-card__star-active')) {
+                e.target.classList.remove('movie-card__star-active');
+                e.target.innerText = '☆';
+            } else {
+                e.target.classList.add('movie-card__star-active');
+                e.target.innerText = '★';
+            }
+        })
 }
 
 
@@ -141,36 +166,36 @@ async function getMovieList(currPage = 1, searchValue='any') {
             }
         });
         if(pagesNumbers[0].classList.contains('movie-list__page-icon-hidden')) {
-            const extremeLeftPageArrow = document.createElement('div'),
+            const marginalLeftPageArrow = document.createElement('div'),
                 pagesContainer = document.querySelector('.movie-list__pages-container');
             let searchBarInput = document.querySelector('.search-bar__input');
                 if(!searchBarInput.value) {
                     searchBarInput.value = 'Any';
                 };
 
-                extremeLeftPageArrow.classList.add('movie-list__page-arrow');
-                extremeLeftPageArrow.innerHTML = '&#10094&#10094';
+                marginalLeftPageArrow.classList.add('movie-list__page-arrow');
+                marginalLeftPageArrow.innerHTML = '&#10094&#10094';
 
-                pagesContainer.prepend(extremeLeftPageArrow);
+                pagesContainer.prepend(marginalLeftPageArrow);
 
-                extremeLeftPageArrow.addEventListener('click', () => {
+                marginalLeftPageArrow.addEventListener('click', () => {
                     handleMovieSearch(1, searchBarInput.value);
                 });
         }
          if (pagesNumbers[pagesNumbers.length - 1].classList.contains('movie-list__page-icon-hidden')) {
-            const extremeRightPageArrow = document.createElement('div'),
+            const marginalRightPageArrow = document.createElement('div'),
                 pagesContainer = document.querySelector('.movie-list__pages-container');
             let searchBarInput = document.querySelector('.search-bar__input');
                 if(!searchBarInput.value) {
                     searchBarInput.value = 'Any';
                 };
 
-                extremeRightPageArrow.classList.add('movie-list__page-arrow');
-                extremeRightPageArrow.innerHTML = '&#10095&#10095';
+                marginalRightPageArrow.classList.add('movie-list__page-arrow');
+                marginalRightPageArrow.innerHTML = '&#10095&#10095';
 
-                pagesContainer.append(extremeRightPageArrow);
+                pagesContainer.append(marginalRightPageArrow);
 
-                extremeRightPageArrow.addEventListener('click', () => {
+                marginalRightPageArrow.addEventListener('click', () => {
                     handleMovieSearch(numOfPages, searchBarInput.value);
                 });
         }

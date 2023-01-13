@@ -103,8 +103,15 @@
     color: #22A39F;
 }
 
+.movie-card__bottom-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .movie-card__year {
     color: #22A39F;
+    margin-bottom: 2px;
     font-size: 15px;
     background-color: rgba(1, 1, 1, 0.7);
     width: 40%;
@@ -112,6 +119,30 @@
     text-align: center;
     line-height: 25px;
     font-weight: 700;
+}
+
+.movie-card__star-hidden {
+    position: absolute;
+    display: none;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    font-size: 20px;
+    text-align: center;
+    color:#F3EFE0;
+    background-color: rgba(1, 1, 1, 0.65);
+    border-radius: 50%;
+    margin-top: 410px;
+}
+
+.movie-card__star-hover {
+    display: block;
+}
+
+.movie-card__star-active {
+    display: block;
+    background-color: none;
+    color:#22A39F;
 }
 
 .movie-list__nothing-found {
