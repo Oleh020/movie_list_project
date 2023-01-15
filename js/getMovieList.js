@@ -205,6 +205,7 @@ async function getMovieList(currPage = 1, searchValue='movie') {
                     searchBarInput.value = 'Movie';
                 };
 
+
                 marginalLeftPageArrow.classList.add('movie-list__page-arrow');
                 marginalLeftPageArrow.innerHTML = '&#10094&#10094';
 
@@ -222,12 +223,14 @@ async function getMovieList(currPage = 1, searchValue='movie') {
                     searchBarInput.value = 'Movie';
                 };
 
+
                 marginalRightPageArrow.classList.add('movie-list__page-arrow');
                 marginalRightPageArrow.innerHTML = '&#10095&#10095';
 
                 pagesContainer.append(marginalRightPageArrow);
 
                 marginalRightPageArrow.addEventListener('click', () => {
+
                     handleMovieSearch(numOfPages, searchBarInput.value);
                 });
         }
@@ -253,5 +256,3 @@ function handleMovieSearch(pageNumber, inputValue) {
     clearMovieList();
     getMovieList(pageNumber, inputValue);
 }
-
-
