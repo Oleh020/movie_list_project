@@ -1,6 +1,6 @@
 import MOVIES_API_KEY from "./key.js";
 import {NO_POSTER_URL} from "./constants.js";
-import {headerRender} from "./headerRender.js";
+import {headerRender, renderFavoriteMovieCards} from "./headerRender.js";
 
 
 const body = document.querySelector('body');
@@ -72,7 +72,7 @@ function appendMovieCard(movie) {
         releaseYear.classList.add('movie-card__year');
     const movieCard = document.createElement('a');
         movieCard.classList.add('movie-card');
-        movieCard.setAttribute("href", `./moviePage.html?id=${movie.imdbID}`)
+        movieCard.setAttribute("href", `./moviePage.html?id=${movie.imdbID}`);
         movieCard.appendChild(title);
         movieCard.appendChild(releaseYear);
         movieCard.append(star);
@@ -96,14 +96,46 @@ function appendMovieCard(movie) {
 
     star.addEventListener('click', (e) => {
         e.preventDefault();
+        //console.log(movie.Title);
+        const movieDescr = {
+            Title: movie.Title,
+            ImdbId: movie.imdbID
+        }
+        const currFaveMoviesArr = JSON.parse(localStorage.getItem('favoriteMovies'));
+
             if (e.target.classList.contains('movie-card__star-active')) {
                 e.target.classList.remove('movie-card__star-active');
                 e.target.innerText = '☆';
+                
+                if(currFaveMoviesArr) {
+                    for (let i=0; i <= currFaveMoviesArr.length; i++) {
+                        if(movie.Title == currFaveMoviesArr[i].Title) {
+                           if(currFaveMoviesArr.length > 1) {
+                            currFaveMoviesArr.splice(i, i);
+                            console.log(currFaveMoviesArr);
+                           } else {
+                            currFaveMoviesArr.length = 0;
+                           }
+                        }
+                    }
+                    localStorage.setItem('favoriteMovies', JSON.stringify(currFaveMoviesArr));
+                } 
+                //localStorage.removeItem('favoriteMovies');
+                //console.log(JSON.parse(localStorage.getItem('favoriteMovies')));
             } else {
                 e.target.classList.add('movie-card__star-active');
                 e.target.innerText = '★';
+                if(!currFaveMoviesArr) {
+                    faveMoviesArr.push(movieDescr);
+                    localStorage.setItem('favoriteMovies', JSON.stringify(faveMoviesArr));
+                } else {
+                    const currFaveMoviesArr = JSON.parse(localStorage.getItem('favoriteMovies'));
+                    console.log(currFaveMoviesArr);
+                    currFaveMoviesArr.push(movieDescr);
+                    localStorage.setItem('favoriteMovies', JSON.stringify(currFaveMoviesArr));
+                }
             }
-        })
+        })      
 }
 
 
@@ -126,7 +158,7 @@ function movieListPagesNumbersRender(numberOfPages) {
         moviePageNumber.addEventListener('click', (e) => {
             let searchInput = document.querySelector('.search-bar__input').value;
             if(!searchInput) {
-                searchInput = 'any';
+                searchInput = 'movie';
             }
             handleMovieSearch(e.target.innerText, searchInput);
         })
@@ -134,7 +166,7 @@ function movieListPagesNumbersRender(numberOfPages) {
 }
 
 /** this function sends request to the API and gets the movie list */
-async function getMovieList(currPage = 1, searchValue='any') {
+async function getMovieList(currPage = 1, searchValue='movie') {
   
     const URL = `https://www.omdbapi.com/?s=${searchValue}&page=${currPage}&apikey=${MOVIES_API_KEY}`;
     const res = await fetch(`${URL}`);
@@ -170,7 +202,7 @@ async function getMovieList(currPage = 1, searchValue='any') {
                 pagesContainer = document.querySelector('.movie-list__pages-container');
             let searchBarInput = document.querySelector('.search-bar__input');
                 if(!searchBarInput.value) {
-                    searchBarInput.value = 'Any';
+                    searchBarInput.value = 'Movie';
                 };
 
                 marginalLeftPageArrow.classList.add('movie-list__page-arrow');
@@ -187,7 +219,7 @@ async function getMovieList(currPage = 1, searchValue='any') {
                 pagesContainer = document.querySelector('.movie-list__pages-container');
             let searchBarInput = document.querySelector('.search-bar__input');
                 if(!searchBarInput.value) {
-                    searchBarInput.value = 'Any';
+                    searchBarInput.value = 'Movie';
                 };
 
                 marginalRightPageArrow.classList.add('movie-list__page-arrow');
@@ -199,6 +231,11 @@ async function getMovieList(currPage = 1, searchValue='any') {
                     handleMovieSearch(numOfPages, searchBarInput.value);
                 });
         }
+
+        //temp
+
+        renderFavoriteMovieCards('https://m.media-amazon.com/images/M/MV5BNjk4MzVlM2UtZGM0ZC00M2M1LThkMWEtZjUyN2U2ZTc0NmM5XkEyXkFqcGdeQXVyOTAzMTc2MjA@._V1_SX300.jpg', 'Title', 'Movie', 'tt1490017');
+        renderFavoriteMovieCards('https://m.media-amazon.com/images/M/MV5BNjk4MzVlM2UtZGM0ZC00M2M1LThkMWEtZjUyN2U2ZTc0NmM5XkEyXkFqcGdeQXVyOTAzMTc2MjA@._V1_SX300.jpg', 'Title', 'Movie', 'tt1490017'); 
     } else{
         noResultsFoundRender();
     }
