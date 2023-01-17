@@ -81,6 +81,16 @@ function appendMovieCard(movie) {
         } else {
             movieCard.style.background = `URL(${NO_POSTER_URL}) no-repeat center center/cover`;
         }
+        //checking every card for being favorite
+        const favoriteMoviesArray = JSON.parse(localStorage.getItem('favoriteMovies'));
+        if (favoriteMoviesArray && favoriteMoviesArray.length > 0) {
+            favoriteMoviesArray.forEach(item => {
+                if(item.Title === movie.Title) {
+                    star.classList.add('movie-card__star-active');
+                    star.innerText = '★';
+                }
+            })
+        }
     document.querySelector('#movie-list').appendChild(movieCard);
     //adding event listeners
     movieCard.addEventListener('mouseover', (e) => {

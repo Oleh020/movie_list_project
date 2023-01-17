@@ -137,6 +137,7 @@ export function appendFavoriteMovieCard(movieInfo) {
             landingPageMovieCards.forEach(item => {
                 if(item.children[0].innerText === movieInfo.Title && item.children[2].classList.contains('movie-card__star-active')) {
                     item.children[2].classList.remove('movie-card__star-active');
+                    item.children[2].innerText = '☆';
                 }
             })
         }
