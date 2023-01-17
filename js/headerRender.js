@@ -123,7 +123,8 @@ export function appendFavoriteMovieCard(movieInfo) {
         e.preventDefault();
         if (e.target === faveMovieDelete) {
             const currFaveMoviesArr = JSON.parse(localStorage.getItem('favoriteMovies')),
-                currFaveCards = document.querySelectorAll('.header__favorite-section__movie-card');
+                currFaveCards = document.querySelectorAll('.header__favorite-section__movie-card'),
+                landingPageMovieCards = document.querySelectorAll('.movie-card');
             removeMovieCardFromLocalstorage(currFaveMoviesArr, movieInfo.ImdbId);
             currFaveCards.forEach(item => {
                 if (e.target.parentElement === item) {
@@ -131,6 +132,11 @@ export function appendFavoriteMovieCard(movieInfo) {
                     if (!favoriteMoviesContainer.innerHTML) {
                         favoriteMoviesContainer.innerHTML = 'No movies found';
                     }
+                }
+            })
+            landingPageMovieCards.forEach(item => {
+                if(item.children[0].innerText === movieInfo.Title && item.children[2].classList.contains('movie-card__star-active')) {
+                    item.children[2].classList.remove('movie-card__star-active');
                 }
             })
         }
