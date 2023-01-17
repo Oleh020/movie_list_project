@@ -1,6 +1,6 @@
 import MOVIES_API_KEY from "./key.js";
 import {NO_POSTER_URL} from "./constants.js";
-import {headerRender, renderFavoriteMovieCards} from "./headerRender.js";
+import {headerRender, renderFaveMovieCard} from "./headerRender.js";
 
 
 const body = document.querySelector('body');
@@ -96,48 +96,49 @@ function appendMovieCard(movie) {
 
     star.addEventListener('click', (e) => {
         e.preventDefault();
-        //console.log(movie.Title);
+
         const movieDescr = {
             Title: movie.Title,
-            ImdbId: movie.imdbID
+            ImdbId: movie.imdbID,
+            Year: movie.Year,
+            Poster: movie.Poster,
+            Type: movie.Type
         }
-        const currFaveMoviesArr = JSON.parse(localStorage.getItem('favoriteMovies'));
+        let currFaveMoviesArr = JSON.parse(localStorage.getItem('favoriteMovies'));
 
             if (e.target.classList.contains('movie-card__star-active')) {
                 e.target.classList.remove('movie-card__star-active');
                 e.target.innerText = '☆';
-                
-                if(currFaveMoviesArr) {
-                    for (let i=0; i <= currFaveMoviesArr.length; i++) {
-                        if(movie.Title == currFaveMoviesArr[i].Title) {
-                           if(currFaveMoviesArr.length > 1) {
-                            currFaveMoviesArr.splice(i, i);
-                            console.log(currFaveMoviesArr);
-                           } else {
-                            currFaveMoviesArr.length = 0;
-                           }
-                        }
-                    }
-                    localStorage.setItem('favoriteMovies', JSON.stringify(currFaveMoviesArr));
-                } 
-                //localStorage.removeItem('favoriteMovies');
-                //console.log(JSON.parse(localStorage.getItem('favoriteMovies')));
-            } else {
+                removeMovieCardFromLocalstorage(currFaveMoviesArr, movieDescr.ImdbId);
+                renderFaveMovieCard();
+                } else {
                 e.target.classList.add('movie-card__star-active');
                 e.target.innerText = '★';
-                if(!currFaveMoviesArr) {
-                    faveMoviesArr.push(movieDescr);
-                    localStorage.setItem('favoriteMovies', JSON.stringify(faveMoviesArr));
-                } else {
-                    const currFaveMoviesArr = JSON.parse(localStorage.getItem('favoriteMovies'));
-                    console.log(currFaveMoviesArr);
+                if(!currFaveMoviesArr || currFaveMoviesArr.length < 1) {
+                    currFaveMoviesArr = [];
                     currFaveMoviesArr.push(movieDescr);
                     localStorage.setItem('favoriteMovies', JSON.stringify(currFaveMoviesArr));
+                    renderFaveMovieCard();
+                } else {
+                    currFaveMoviesArr.push(movieDescr);
+                    localStorage.setItem('favoriteMovies', JSON.stringify(currFaveMoviesArr));
+                    renderFaveMovieCard();
                 }
             }
-        })      
-}
+        });
+    }
 
+function removeMovieCardFromLocalstorage(arr, Id) {
+        if(arr) {
+            for (let i=0; i < arr.length; i++) {
+                if(Id == arr[i].ImdbId) {
+                    arr.splice(i, 1);
+                   }
+                   localStorage.setItem('favoriteMovies', JSON.stringify(arr));
+                }
+                
+            }
+    }
 
 /**
  * This function is suppused to render a block with pages numbers and put on them event listener so every time you click on it, it inits search on target page
@@ -171,6 +172,7 @@ async function getMovieList(currPage = 1, searchValue='movie') {
     const URL = `https://www.omdbapi.com/?s=${searchValue}&page=${currPage}&apikey=${MOVIES_API_KEY}`;
     const res = await fetch(`${URL}`);
     const movieList = await res.json();
+
     if (movieList.Response === 'True'){
         movieList.Search.length = 9;
         movieList.Search.forEach(appendMovieCard);
@@ -234,11 +236,6 @@ async function getMovieList(currPage = 1, searchValue='movie') {
                     handleMovieSearch(numOfPages, searchBarInput.value);
                 });
         }
-
-        //temp
-
-        renderFavoriteMovieCards('https://m.media-amazon.com/images/M/MV5BNjk4MzVlM2UtZGM0ZC00M2M1LThkMWEtZjUyN2U2ZTc0NmM5XkEyXkFqcGdeQXVyOTAzMTc2MjA@._V1_SX300.jpg', 'Title', 'Movie', 'tt1490017');
-        renderFavoriteMovieCards('https://m.media-amazon.com/images/M/MV5BNjk4MzVlM2UtZGM0ZC00M2M1LThkMWEtZjUyN2U2ZTc0NmM5XkEyXkFqcGdeQXVyOTAzMTc2MjA@._V1_SX300.jpg', 'Title', 'Movie', 'tt1490017'); 
     } else{
         noResultsFoundRender();
     }

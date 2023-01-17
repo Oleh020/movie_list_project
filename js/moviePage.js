@@ -125,10 +125,17 @@ async function getMovieInfo(imdbID) {
     const URL = `https://www.omdbapi.com/?i=${imdbID}&apikey=${MOVIES_API_KEY}`;
     const res = await fetch(`${URL}`);
     const movieInfo = await res.json();
-    changePageTitleToMovieTitle(movieInfo);
-    renderMovieInfo(movieInfo);
+    return movieInfo;
 };
 
-getMovieInfo(getMovieId());
+const movieInfo = await getMovieInfo(getMovieId());
+
+async function renderMoviePage(movieInformation) {
+    await changePageTitleToMovieTitle(movieInformation);
+    await renderMovieInfo(movieInformation);
+}
+
+renderMoviePage(movieInfo);
+
 
 

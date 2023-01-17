@@ -75,7 +75,7 @@
 .header__favorite-section__movies-container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items:center;
     width: 100%;
     min-height: 150px;
@@ -118,13 +118,14 @@
 
 .header__favorite-section__movie-card {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 150px;
     border-radius: 10px;
     cursor: pointer;
     color: #434242;
+    box-shadow: 1px 1px 5px #434242;
 }
 
 .header__favorite-section__movie-card:hover {
@@ -137,14 +138,35 @@
     width: 100px;
     height: 150px;
     border-radius: 10px;
+    justify-self: flex-start;
 }
 
 .header__favorite-section__movie-card__title {
+    margin: 0;
     display: block;
-    width: 600px;
-    height: 100%;
+    width: 55%;
+    height: 150px;
+    line-height: 150px;
     font-size: 25px;
     font-weight: 600;
-    align-self: flex-start;
+    padding-left: 50px;
+    text-align: left;
 }
 
+.header__favorite-section__movie-card__delete {
+    margin: 0;
+    width: 120px;
+    line-height: 120px;
+    height: 120px;
+    font-size: 50px;
+    border-left: 2px dotted #434242;
+    text-align: center;
+}
+
+.header__favorite-section__movie-card__text {
+    margin: 0;
+    width: 120px;
+    line-height: 120px;
+    text-align: center;
+    border-left: 2px dotted #434242;
+}
