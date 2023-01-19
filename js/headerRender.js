@@ -84,14 +84,17 @@ export function renderFaveMovieCard() {
   }
 }
 
-function removeMovieCardFromLocalstorage(arr, Id) {
+/**
+ * This function launches on delete button click and searches for the element that matches target`s id, splices dat one and sets new localstorage value
+ * @param {array} arr
+ * @param {string} Id
+ */
+
+export function removeMovieCardFromLocalstorage(arr, Id) {
   if (arr) {
-    for (let i = 0; i < arr.length; i++) {
-      if (Id == arr[i].ImdbId) {
-        arr.splice(i, 1);
-      }
-      localStorage.setItem('favoriteMovies', JSON.stringify(arr));
-    }
+    let idToRemove = arr.find((movie) => movie.ImdbId === Id);
+    arr.splice(arr.indexOf(idToRemove), 1);
+    localStorage.setItem('favoriteMovies', JSON.stringify(arr));
   }
 }
 

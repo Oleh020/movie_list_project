@@ -1,6 +1,6 @@
 import MOVIES_API_KEY from './key.js';
 import { NO_POSTER_URL } from './constants.js';
-import { headerRender, renderFaveMovieCard } from './headerRender.js';
+import { headerRender, renderFaveMovieCard, removeMovieCardFromLocalstorage } from './headerRender.js';
 
 const body = document.querySelector('body');
 //At first function that creates header initializes
@@ -134,17 +134,6 @@ function appendMovieCard(movie) {
       }
     }
   });
-}
-
-function removeMovieCardFromLocalstorage(arr, Id) {
-  if (arr) {
-    for (let i = 0; i < arr.length; i++) {
-      if (Id == arr[i].ImdbId) {
-        arr.splice(i, 1);
-      }
-      localStorage.setItem('favoriteMovies', JSON.stringify(arr));
-    }
-  }
 }
 
 /**
