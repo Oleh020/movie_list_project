@@ -62,11 +62,19 @@ export function headerRender() {
       const emptyMovieArr = [];
       localStorage.setItem('favoriteMovies', JSON.stringify(emptyMovieArr));
       favoriteMoviesContainer.innerHTML = 'No movies added yet, choose wisely';
-      const activeStars = document.querySelectorAll('.movie-card__star--active');
+      const activeStars = document.querySelectorAll('.movie-card__star--active'),
+        onPosterFaveCheckButton = document.querySelector('.movie-descr__poster-fave-button');
       activeStars.forEach((item) => {
         item.classList.remove('movie-card__star--active');
         item.innerText = '☆';
       });
+      if (
+        onPosterFaveCheckButton &&
+        onPosterFaveCheckButton.classList.contains('movie-descr__poster-fave-button--active')
+      ) {
+        onPosterFaveCheckButton.innerText = 'Add to favorites ☆';
+        onPosterFaveCheckButton.classList.remove('movie-descr__poster-fave-button--active');
+      }
     }
   });
 }
@@ -131,7 +139,8 @@ export function appendFavoriteMovieCard(movieInfo) {
     if (e.target === faveMovieDelete) {
       const currFaveMoviesArr = JSON.parse(localStorage.getItem('favoriteMovies')),
         currFaveCards = document.querySelectorAll('.header__favorite-section__movie-card'),
-        landingPageMovieCards = document.querySelectorAll('.movie-card');
+        landingPageMovieCards = document.querySelectorAll('.movie-card'),
+        onPosterFaveCheckButton = document.querySelector('.movie-descr__poster-fave-button');
       removeMovieCardFromLocalstorage(currFaveMoviesArr, movieInfo.ImdbId);
       currFaveCards.forEach((item) => {
         if (e.target.parentElement === item) {
@@ -150,6 +159,13 @@ export function appendFavoriteMovieCard(movieInfo) {
           item.children[2].innerText = '☆';
         }
       });
+      if (
+        onPosterFaveCheckButton &&
+        onPosterFaveCheckButton.classList.contains('movie-descr__poster-fave-button--active')
+      ) {
+        onPosterFaveCheckButton.classList.remove('movie-descr__poster-fave-button--active');
+        onPosterFaveCheckButton.innerText = 'Add to favorites ☆';
+      }
     }
   });
 }

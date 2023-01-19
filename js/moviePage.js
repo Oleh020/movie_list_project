@@ -1,6 +1,6 @@
 import MOVIES_API_KEY from './key.js';
 import { NO_POSTER_URL } from './constants.js';
-import { headerRender } from './headerRender.js';
+import { headerRender, renderFaveMovieCard, removeMovieCardFromLocalstorage } from './headerRender.js';
 
 const body = document.querySelector('body');
 
@@ -40,6 +40,94 @@ function renderMovieInfo(movieInformation) {
   } else {
     poster.style.background = `URL(${NO_POSTER_URL}) no-repeat center center/cover`;
   }
+
+  const onPosterFaveCheckButton = document.createElement('div');
+  onPosterFaveCheckButton.classList.add('movie-descr__poster-fave-button');
+  onPosterFaveCheckButton.innerText = 'Add to favorites ☆';
+  poster.appendChild(onPosterFaveCheckButton);
+
+  const currFaveMoviesArr = JSON.parse(localStorage.getItem('favoriteMovies'));
+  currFaveMoviesArr.forEach((item) => {
+    if (item.ImdbId === movieInformation.imdbID) {
+      onPosterFaveCheckButton.classList.add('movie-descr__poster-fave-button--active');
+    }
+  });
+  //adding event listeners on passive button state
+
+  onPosterFaveCheckButton.addEventListener('mouseover', (e) => {
+    if (
+      e.target === onPosterFaveCheckButton &&
+      !onPosterFaveCheckButton.classList.contains('movie-descr__poster-fave-button--active')
+    ) {
+      e.target.classList.add('movie-descr__poster-fave-button--hover');
+      e.target.innerText = 'Add to favorites ★';
+    }
+  });
+
+  onPosterFaveCheckButton.addEventListener('mouseleave', (e) => {
+    if (
+      e.target === onPosterFaveCheckButton &&
+      !onPosterFaveCheckButton.classList.contains('movie-descr__poster-fave-button--active')
+    ) {
+      e.target.classList.remove('movie-descr__poster-fave-button--hover');
+      e.target.innerText = 'Add to favorites ☆';
+    }
+  });
+
+  //adding event listeners on active button state
+
+  onPosterFaveCheckButton.addEventListener('mouseover', (e) => {
+    if (
+      e.target === onPosterFaveCheckButton &&
+      onPosterFaveCheckButton.classList.contains('movie-descr__poster-fave-button--active')
+    ) {
+      e.target.classList.add('movie-descr__poster-fave-button--active-hover');
+      e.target.innerText = 'Don`t like this one ☆';
+    }
+  });
+
+  onPosterFaveCheckButton.addEventListener('mouseleave', (e) => {
+    if (
+      e.target === onPosterFaveCheckButton &&
+      !onPosterFaveCheckButton.classList.contains('movie-descr__poster-fave-button--active')
+    ) {
+      e.target.classList.remove('movie-descr__poster-fave-button--active-hover');
+      e.target.innerText = 'Add to favorites ☆';
+    } else {
+      e.target.innerText = 'One of favorites ★';
+      e.target.classList.remove('movie-descr__poster-fave-button--active-hover');
+    }
+  });
+
+  //adding event listeners on click active/passive button state
+
+  onPosterFaveCheckButton.addEventListener('click', (e) => {
+    const movieDescr = {
+      Title: movieInformation.Title,
+      ImdbId: movieInformation.imdbID,
+      Year: movieInformation.Year,
+      Poster: movieInformation.Poster,
+      Type: movieInformation.Type,
+    };
+    if (
+      e.target === onPosterFaveCheckButton &&
+      !onPosterFaveCheckButton.classList.contains('movie-descr__poster-fave-button--active')
+    ) {
+      e.target.classList.remove('movie-descr__poster-fave-button--hover');
+      const currFaveMoviesArr = JSON.parse(localStorage.getItem('favoriteMovies'));
+      onPosterFaveCheckButton.classList.add('movie-descr__poster-fave-button--active');
+      e.target.innerText = 'One of favorites ★';
+      currFaveMoviesArr.push(movieDescr);
+      localStorage.setItem('favoriteMovies', JSON.stringify(currFaveMoviesArr));
+      renderFaveMovieCard();
+    } else {
+      const currFaveMoviesArr = JSON.parse(localStorage.getItem('favoriteMovies'));
+      onPosterFaveCheckButton.classList.remove('movie-descr__poster-fave-button--active');
+      e.target.innerText = 'Add to favorites ☆';
+      removeMovieCardFromLocalstorage(currFaveMoviesArr, movieInformation.imdbID);
+      renderFaveMovieCard();
+    }
+  });
 
   movieContainer.appendChild(poster);
   const descrBlock = document.createElement('div');
@@ -101,7 +189,6 @@ function renderMovieInfo(movieInformation) {
     boxOffice.innerHTML = `<span class = 'movie-descr__general__subtitle'>Box office: </span> __ `;
   }
 
-  console.log(movieInformation.BoxOffice);
   descrBlock.appendChild(boxOffice);
   movieContainer.appendChild(descrBlock);
 
