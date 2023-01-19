@@ -141,7 +141,7 @@
     display: block;
 }
 
-.movie-card__star-active {
+.movie-card__star--active {
     display: block;
     background-color: none;
     color:#22A39F;
@@ -209,7 +209,7 @@
     outline: #22A39F 2px solid;
 }
 
-.movie-list__page-icon-active {
+.movie-list__page-icon--active {
     font-weight: 700;
     background-color:#22A39F;
     color:#434242;

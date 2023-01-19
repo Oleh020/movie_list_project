@@ -43,7 +43,7 @@
     outline: #22A39F 2px solid;
 }
 
-.header__favorite-btn-active {
+.header__favorite-btn--active {
     background-color:#22A39F;
     color: #434242;
     box-shadow: inset 2px 2px 5px #000000;
@@ -64,7 +64,7 @@
     cursor: default;
 }
 
-.header__favorite-section-active {
+.header__favorite-section--active {
     display: flex;
     flex-direction: column;
     justify-content: space-between;

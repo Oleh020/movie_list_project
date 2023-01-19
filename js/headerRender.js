@@ -40,30 +40,36 @@ export function headerRender() {
     body.appendChild(header);
 
     favoritesBtn.addEventListener('click', e => {
-        if(e.target === favoritesBtn && e.target.classList.contains('header__favorite-btn-active')) {
-            e.target.classList.remove('header__favorite-btn-active');
-            favoriteSection.classList.remove('header__favorite-section-active');
-        } else if (e.target === favoritesBtn && !e.target.classList.contains('header__favorite-btn-active')){
-            e.target.classList.add('header__favorite-btn-active');
-            favoriteSection.classList.add('header__favorite-section-active');
+        if(e.target === favoritesBtn && e.target.classList.contains('header__favorite-btn--active')) {
+            e.target.classList.remove('header__favorite-btn--active');
+            favoriteSection.classList.remove('header__favorite-section--active');
+        } else if (e.target === favoritesBtn && !e.target.classList.contains('header__favorite-btn--active')){
+            e.target.classList.add('header__favorite-btn--active');
+            favoriteSection.classList.add('header__favorite-section--active');
             renderFaveMovieCard();
         }
     })
 
     favoriteCloseBtn.addEventListener('click', e => {
-        if(e.target === favoriteCloseBtn && favoritesBtn.classList.contains('header__favorite-btn-active')) {
-            favoriteSection.classList.remove('header__favorite-section-active');
-            favoritesBtn.classList.remove('header__favorite-btn-active');
+        if(e.target === favoriteCloseBtn && favoritesBtn.classList.contains('header__favorite-btn--active')) {
+            favoriteSection.classList.remove('header__favorite-section--active');
+            favoritesBtn.classList.remove('header__favorite-btn--active');
         }
     });
 
     favoriteResetAllBtn.addEventListener('click', e => {
-        if(e.target === favoriteResetAllBtn) {
-            const emptyMovieArr = [];
-            localStorage.setItem('favoriteMovies', JSON.stringify(emptyMovieArr));
-            favoriteMoviesContainer.innerHTML = 'No movies added yet, choose wisely';
-        } 
-    })
+    if(e.target === favoriteResetAllBtn) {
+        const emptyMovieArr = [];
+        localStorage.setItem('favoriteMovies', JSON.stringify(emptyMovieArr));
+        favoriteMoviesContainer.innerHTML = 'No movies added yet, choose wisely';
+        const activeStars = document.querySelectorAll('.movie-card__star--active');
+        activeStars.forEach((item) => {
+            item.classList.remove('movie-card__star--active');
+            item.innerText = '☆';
+        })
+    } 
+})
+
 }
 
 export function renderFaveMovieCard() {
@@ -135,8 +141,8 @@ export function appendFavoriteMovieCard(movieInfo) {
                 }
             })
             landingPageMovieCards.forEach(item => {
-                if(item.children[0].innerText === movieInfo.Title && item.children[2].classList.contains('movie-card__star-active')) {
-                    item.children[2].classList.remove('movie-card__star-active');
+                if(item.children[0].innerText === movieInfo.Title && item.children[2].classList.contains('movie-card__star--active')) {
+                    item.children[2].classList.remove('movie-card__star--active');
                     item.children[2].innerText = '☆';
                 }
             })

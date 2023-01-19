@@ -86,7 +86,7 @@ function appendMovieCard(movie) {
         if (favoriteMoviesArray && favoriteMoviesArray.length > 0) {
             favoriteMoviesArray.forEach(item => {
                 if(item.Title === movie.Title) {
-                    star.classList.add('movie-card__star-active');
+                    star.classList.add('movie-card__star--active');
                     star.innerText = '★';
                 }
             })
@@ -116,13 +116,13 @@ function appendMovieCard(movie) {
         }
         let currFaveMoviesArr = JSON.parse(localStorage.getItem('favoriteMovies'));
 
-            if (e.target.classList.contains('movie-card__star-active')) {
-                e.target.classList.remove('movie-card__star-active');
+            if (e.target.classList.contains('movie-card__star--active')) {
+                e.target.classList.remove('movie-card__star--active');
                 e.target.innerText = '☆';
                 removeMovieCardFromLocalstorage(currFaveMoviesArr, movieDescr.ImdbId);
                 renderFaveMovieCard();
                 } else {
-                e.target.classList.add('movie-card__star-active');
+                e.target.classList.add('movie-card__star--active');
                 e.target.innerText = '★';
                 if(!currFaveMoviesArr || currFaveMoviesArr.length < 1) {
                     currFaveMoviesArr = [];
@@ -192,13 +192,13 @@ async function getMovieList(currPage = 1, searchValue='movie') {
         const pagesNumbers = document.querySelectorAll('.movie-list__page-icon'),
             firstPageNumber = document.querySelector('.movie-list__page-icon');
         if(currPage === 1) {
-            firstPageNumber.classList.add('movie-list__page-icon-active');
+            firstPageNumber.classList.add('movie-list__page-icon--active');
         } else if(currPage === numOfPages) {
-            pagesNumbers[pagesNumbers.length - 1].classList.add('movie-list__page-icon-active');
+            pagesNumbers[pagesNumbers.length - 1].classList.add('movie-list__page-icon--active');
         }else {
             pagesNumbers.forEach(item => {
                 if(item.innerText === currPage) {
-                    item.classList.add('movie-list__page-icon-active');
+                    item.classList.add('movie-list__page-icon--active');
                 }
             })
         }
