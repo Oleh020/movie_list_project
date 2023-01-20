@@ -50,6 +50,7 @@ function renderMovieInfo(movieInformation) {
   currFaveMoviesArr.forEach((item) => {
     if (item.ImdbId === movieInformation.imdbID) {
       onPosterFaveCheckButton.classList.add('movie-descr__poster-fave-button--active');
+      onPosterFaveCheckButton.innerText = 'One of favorites ★';
     }
   });
   //adding event listeners on passive button state
