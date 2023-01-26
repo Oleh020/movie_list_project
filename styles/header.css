@@ -29,12 +29,12 @@
   display: block;
   height: 45px;
   width: 150px;
-  line-height: 45px;
   background-color: #434242;
   cursor: pointer;
+  border-radius: 10px;
+  line-height: 45px;
   color: #f3efe0;
   font-size: 20px;
-  border-radius: 10px;
   text-align: center;
   font-weight: 550;
 }
@@ -44,17 +44,18 @@
 }
 
 .header__favorite-btn--active {
+  border-radius: 10px;
   background-color: #22a39f;
   color: #434242;
   box-shadow: inset 2px 2px 5px #000000;
 }
 
 .header__favorite-section {
-  top: 60px;
+  top: 80px;
+  left: 20%;
   position: absolute;
   display: none;
-  width: 1142px;
-  left: -992px;
+  width: 60%;
   min-height: 250px;
   padding: 15px;
   background-color: #22a39f;
@@ -81,6 +82,10 @@
   min-height: 150px;
   text-align: start;
   gap: 10px;
+  color: #494949;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 550;
 }
 
 .header__favorite-section__btns-container {
@@ -92,6 +97,7 @@
   width: 100%;
   gap: 20px;
   border-top: dotted 2px #434242;
+  text-align: center;
 }
 
 .header__favorite-section__close-btn,
@@ -171,4 +177,69 @@
   line-height: 120px;
   text-align: center;
   border-left: 2px dotted #434242;
+}
+
+@media screen and (max-width: 320px) {
+  .header {
+    height: 60px;
+  }
+
+  .header__container {
+    width: 80%;
+    height: inherit;
+  }
+
+  .header__favorite-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    line-height: 35px;
+  }
+
+  .header__favorite-section {
+    top: 60px;
+    width: 80%;
+    left: 10%;
+    padding: 10px;
+    min-height: 100px;
+  }
+
+  .header__favorite-section__movies-container {
+    min-height: 100px;
+  }
+
+  .header__favorite-section__btns-container {
+    height: 45px;
+    gap: 10px;
+    justify-content: space-around;
+  }
+
+  .header__favorite-section__movie-card {
+    height: 80px;
+  }
+
+  .header__favorite-section__movie-card__poster {
+    width: 53px;
+    height: 80px;
+  }
+
+  .header__favorite-section__movie-card__title {
+    font-size: 15px;
+    height: 80px;
+    padding: 5px;
+    width: 50%;
+    line-height: 15px;
+  }
+
+  .header__favorite-section__movie-card__text {
+    display: none;
+  }
+
+  .header__favorite-section__movie-card__delete {
+    width: 50px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 30px;
+    border-radius: 10px;
+  }
 }
