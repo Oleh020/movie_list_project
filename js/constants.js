@@ -85,4 +85,4 @@ export const LOGO_MAIN = `<svg version="1.1" x="0px" y="0px"
 </g>
 </svg>`;
 
-export const MEDIA_MAX_WIDTH_320PX = window.matchMedia('(max-width: 575px)');
+export const MEDIA_MAX_WIDTH_575PX = window.matchMedia('(max-width: 575px)');
