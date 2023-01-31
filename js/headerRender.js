@@ -1,13 +1,9 @@
-
-import { LOGO_MAIN, MEDIA_MAX_WIDTH_320PX } from './constants.js';
-
+import { LOGO_MAIN } from './constants.js';
 /**
  * This function proceduraly adds a header to the page, it needs some styles from global.css
  */
 
 export function headerRender() {
-  const body = document.querySelector('body');
-
   const header = document.createElement('header'),
     headerContainer = document.createElement('div'),
     logoContainer = document.createElement('a'),
@@ -36,11 +32,11 @@ export function headerRender() {
   favoriteResetAllBtn.innerText = 'Reset all';
   favoriteBtnsContainer.append(favoriteResetAllBtn, favoriteCloseBtn);
   favoriteSection.append(favoriteMoviesContainer, favoriteBtnsContainer);
-  body.append(favoriteSection);
+  favoritesBtn.append(favoriteSection);
 
   headerContainer.append(logoContainer, favoritesBtn);
   header.append(headerContainer);
-
+  const body = document.querySelector('body');
   body.appendChild(header);
 
   favoritesBtn.addEventListener('click', (e) => {
@@ -55,11 +51,7 @@ export function headerRender() {
   });
 
   favoriteCloseBtn.addEventListener('click', (e) => {
-    if (
-      (e.target === favoriteCloseBtn && favoritesBtn.classList.contains('header__favorite-btn--active')) ||
-      favoritesBtn.classList.contains('header__favorite-btn--active')
-    ) {
-
+    if (e.target === favoriteCloseBtn && favoritesBtn.classList.contains('header__favorite-btn--active')) {
       favoriteSection.classList.remove('header__favorite-section--active');
       favoritesBtn.classList.remove('header__favorite-btn--active');
     }
@@ -85,26 +77,12 @@ export function headerRender() {
       }
     }
   });
-
-  function changeFaveBtnInnerTextForLowResScreens(e) {
-    if (e.matches && favoritesBtn) {
-      e.preventDefault();
-      e.stopPropagation();
-      favoritesBtn.innerText = '★';
-    }
-  }
-
-  MEDIA_MAX_WIDTH_320PX.addEventListener('change', (e) => {
-    changeFaveBtnInnerTextForLowResScreens(e);
-  });
-
 }
 
 export function renderFaveMovieCard() {
   const favoriteMoviesContainer = document.querySelector('.header__favorite-section__movies-container');
   let currFaveMoviesArr = JSON.parse(localStorage.getItem('favoriteMovies'));
-
-  favoriteMoviesContainer.innerHTML = ' ';
+  favoriteMoviesContainer.innerHTML = '';
   if (currFaveMoviesArr && currFaveMoviesArr.length > 0) {
     currFaveMoviesArr.forEach((item) => {
       appendFavoriteMovieCard(item);
