@@ -1,8 +1,8 @@
 import { LOGO_MAIN, MEDIA_MAX_WIDTH_320PX } from './constants.js';
+
 /**
  * This function proceduraly adds a header to the page, it needs some styles from global.css
  */
-
 export function headerRender() {
   const body = document.querySelector('body');
   const header = document.createElement('header'),
@@ -113,7 +113,6 @@ export function renderFaveMovieCard() {
  * @param {array} arr
  * @param {string} Id
  */
-
 export function removeMovieCardFromLocalstorage(arr, Id) {
   if (arr) {
     let idToRemove = arr.find((movie) => movie.ImdbId === Id);
