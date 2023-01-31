@@ -1,10 +1,13 @@
+
 import { LOGO_MAIN, MEDIA_MAX_WIDTH_320PX } from './constants.js';
+
 /**
  * This function proceduraly adds a header to the page, it needs some styles from global.css
  */
 
 export function headerRender() {
   const body = document.querySelector('body');
+
   const header = document.createElement('header'),
     headerContainer = document.createElement('div'),
     logoContainer = document.createElement('a'),
@@ -56,6 +59,7 @@ export function headerRender() {
       (e.target === favoriteCloseBtn && favoritesBtn.classList.contains('header__favorite-btn--active')) ||
       favoritesBtn.classList.contains('header__favorite-btn--active')
     ) {
+
       favoriteSection.classList.remove('header__favorite-section--active');
       favoritesBtn.classList.remove('header__favorite-btn--active');
     }
@@ -93,11 +97,13 @@ export function headerRender() {
   MEDIA_MAX_WIDTH_320PX.addEventListener('change', (e) => {
     changeFaveBtnInnerTextForLowResScreens(e);
   });
+
 }
 
 export function renderFaveMovieCard() {
   const favoriteMoviesContainer = document.querySelector('.header__favorite-section__movies-container');
   let currFaveMoviesArr = JSON.parse(localStorage.getItem('favoriteMovies'));
+
   favoriteMoviesContainer.innerHTML = ' ';
   if (currFaveMoviesArr && currFaveMoviesArr.length > 0) {
     currFaveMoviesArr.forEach((item) => {
