@@ -1,4 +1,4 @@
-import { LOGO_MAIN, MEDIA_MAX_WIDTH_320PX } from './constants.js';
+import { LOGO_MAIN, MEDIA_MAX_WIDTH_575PX } from './constants.js';
 
 /**
  * This function proceduraly adds a header to the page, it needs some styles from global.css
@@ -82,6 +82,10 @@ export function headerRender() {
     }
   });
 
+  if (window.screen.width <= 575) {
+    favoritesBtn.innerText = '★';
+  }
+
   function changeFaveBtnInnerTextForLowResScreens(e) {
     if (e.matches && favoritesBtn) {
       e.preventDefault();
@@ -90,7 +94,7 @@ export function headerRender() {
     }
   }
 
-  MEDIA_MAX_WIDTH_320PX.addEventListener('change', (e) => {
+  MEDIA_MAX_WIDTH_575PX.addEventListener('change', (e) => {
     changeFaveBtnInnerTextForLowResScreens(e);
   });
 }
